@@ -1,0 +1,13 @@
+{
+	"name": "ls_ablob_coovidanalysissa",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "link service to the coovidanalysissa blob storage",
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=coovidanalysissa;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEVBRkVDQjdGLTc5RjMtNDY0Ri05RDQwLTIzMDQ3Nzg5REZCNF8xNjkyYjE1ZS0zZjdjLTQ1YjAtYjI5NS02ZDE4NzMxNjVkMTIiDQp9"
+		}
+	}
+}
