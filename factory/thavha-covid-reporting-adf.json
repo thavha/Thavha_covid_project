@@ -1,0 +1,9 @@
+{
+	"name": "thavha-covid-reporting-adf",
+	"location": "southafricanorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0fc354bc-20b7-4518-800c-5b23c5b151df",
+		"tenantId": "4b1b908c-5582-4377-ba07-a36d65e34934"
+	}
+}
