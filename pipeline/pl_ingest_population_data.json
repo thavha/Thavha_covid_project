@@ -43,7 +43,8 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"columnCount"
+						"columnCount",
+						"itemName"
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
@@ -82,7 +83,7 @@
 									"value": "@concat('Ingesting ' ,activity('Get Population data Metadata').output.itemName,' Data failed' )",
 									"type": "Expression"
 								},
-								"errorCode": "'404'"
+								"errorCode": "404"
 							}
 						}
 					],
