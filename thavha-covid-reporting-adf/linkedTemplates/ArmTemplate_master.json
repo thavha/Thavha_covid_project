@@ -19,6 +19,10 @@
 			"type": "string",
 			"defaultValue": "https://covidanalysislake.dfs.core.windows.net/"
 		},
+		"tr_population_data_triger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e73288a2-b293-4973-8bff-03cbacf8dec6/resourceGroups/rg-covid-19/providers/Microsoft.Storage/storageAccounts/coovidanalysissa"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -54,6 +58,9 @@
 					},
 					"ls_adls_covidanalysislake_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_covidanalysislake_properties_typeProperties_url')]"
+					},
+					"tr_population_data_triger_properties_typeProperties_scope": {
+						"value": "[parameters('tr_population_data_triger_properties_typeProperties_scope')]"
 					}
 				}
 			},
