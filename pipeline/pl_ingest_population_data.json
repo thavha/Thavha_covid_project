@@ -193,7 +193,7 @@
 		],
 		"concurrency": 1,
 		"folder": {
-			"name": "copy"
+			"name": "ingest"
 		},
 		"annotations": []
 	}
