@@ -20,6 +20,12 @@
 		"ls_http_opendata_ecde_europa_eu_properties_typeProperties_url": {
 			"value": "https://github.com"
 		},
+		"tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sourceRelativeURL": {
+			"value": "cloudboxacademy/covid19/blob/main/ecdc_data/case_deaths_uk_ind_only.csv"
+		},
+		"tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sinkfileName": {
+			"value": "case_deaths_uk_ind_only.csv"
+		},
 		"containerUri": {
 			"value": ""
 		},
