@@ -14,9 +14,6 @@
 		"ls_adls_covidanalysislake_properties_typeProperties_url": {
 			"value": "https://covidanalysislake.dfs.core.windows.net/"
 		},
-		"tr_population_data_triger_properties_typeProperties_scope": {
-			"value": "/subscriptions/e73288a2-b293-4973-8bff-03cbacf8dec6/resourceGroups/rg-covid-19/providers/Microsoft.Storage/storageAccounts/coovidanalysissa"
-		},
 		"ls_http_opendata_ecde_europa_eu_properties_typeProperties_url": {
 			"value": "https://github.com"
 		},
@@ -25,6 +22,9 @@
 		},
 		"tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sinkfileName": {
 			"value": "case_deaths_uk_ind_only.csv"
+		},
+		"tr_population_data_triger_properties_typeProperties_scope": {
+			"value": "/subscriptions/e73288a2-b293-4973-8bff-03cbacf8dec6/resourceGroups/rg-covid-19/providers/Microsoft.Storage/storageAccounts/coovidanalysissa"
 		},
 		"containerUri": {
 			"value": ""

@@ -19,10 +19,6 @@
 			"type": "string",
 			"defaultValue": "https://covidanalysislake.dfs.core.windows.net/"
 		},
-		"tr_population_data_triger_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/e73288a2-b293-4973-8bff-03cbacf8dec6/resourceGroups/rg-covid-19/providers/Microsoft.Storage/storageAccounts/coovidanalysissa"
-		},
 		"ls_http_opendata_ecde_europa_eu_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://github.com"
@@ -34,6 +30,10 @@
 		"tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sinkfileName": {
 			"type": "string",
 			"defaultValue": "case_deaths_uk_ind_only.csv"
+		},
+		"tr_population_data_triger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e73288a2-b293-4973-8bff-03cbacf8dec6/resourceGroups/rg-covid-19/providers/Microsoft.Storage/storageAccounts/coovidanalysissa"
 		},
 		"containerUri": {
 			"type": "string",
@@ -74,14 +74,14 @@
 					"ls_http_opendata_ecde_europa_eu_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_opendata_ecde_europa_eu_properties_typeProperties_url')]"
 					},
-					"tr_population_data_triger_properties_typeProperties_scope": {
-						"value": "[parameters('tr_population_data_triger_properties_typeProperties_scope')]"
-					},
 					"tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sourceRelativeURL": {
 						"value": "[parameters('tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sourceRelativeURL')]"
 					},
 					"tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sinkfileName": {
 						"value": "[parameters('tr_ingest_github_data_properties_pl_ingest_ecdc_data_parameters_sinkfileName')]"
+					},
+					"tr_population_data_triger_properties_typeProperties_scope": {
+						"value": "[parameters('tr_population_data_triger_properties_typeProperties_scope')]"
 					}
 				}
 			},
