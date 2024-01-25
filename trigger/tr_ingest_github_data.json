@@ -8,10 +8,6 @@
 				"pipelineReference": {
 					"referenceName": "pl_ingest_ecdc_data",
 					"type": "PipelineReference"
-				},
-				"parameters": {
-					"sourceRelativeURL": "cloudboxacademy/covid19/blob/main/ecdc_data/case_deaths_uk_ind_only.csv",
-					"sinkfileName": "case_deaths_uk_ind_only.csv"
 				}
 			}
 		],
@@ -20,7 +16,7 @@
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2024-01-23T13:30:00",
+				"startTime": "2024-01-25T13:15:00",
 				"timeZone": "South Africa Standard Time"
 			}
 		}
