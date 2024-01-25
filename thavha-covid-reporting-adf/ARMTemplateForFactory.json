@@ -641,8 +641,9 @@
 					"recurrence": {
 						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2024-01-23T13:30:00",
-						"timeZone": "South Africa Standard Time"
+						"startTime": "2024-01-25T13:15:00",
+						"timeZone": "South Africa Standard Time",
+						"schedule": {}
 					}
 				}
 			},
