@@ -12,15 +12,7 @@
 					"name": "CasesDeathSource"
 				}
 			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
-					},
-					"name": "sink1"
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "filterEuropeOnly"
@@ -43,11 +35,7 @@
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     moveFiles: ['ecdc','archive']) ~> CasesDeathSource",
-				"CasesDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> filterEuropeOnly",
-				"filterEuropeOnly sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"CasesDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> filterEuropeOnly"
 			]
 		}
 	}
