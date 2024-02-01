@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "df_raw_cases_deaths",
+						"referenceName": "ds_raw_cases_deaths",
 						"type": "DatasetReference"
 					},
 					"name": "CasesDeathSource"
@@ -16,6 +16,12 @@
 			"transformations": [
 				{
 					"name": "filterEuropeOnly"
+				},
+				{
+					"name": "SelectOnlyReleventFields"
+				},
+				{
+					"name": "PivotCounts"
 				}
 			],
 			"scriptLines": [
@@ -35,7 +41,28 @@
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
 				"     moveFiles: ['ecdc','archive']) ~> CasesDeathSource",
-				"CasesDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> filterEuropeOnly"
+				"CasesDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> filterEuropeOnly",
+				"filterEuropeOnly select(mapColumn(",
+				"          country,",
+				"          country_code,",
+				"          population,",
+				"          indicator,",
+				"          daily_count,",
+				"          source,",
+				"          each(match(name == 'date'),",
+				"               'repoeted' + '_date' = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> SelectOnlyReleventFields",
+				"SelectOnlyReleventFields pivot(groupBy(country,",
+				"          country_code,",
+				"          population,",
+				"          source,",
+				"          repoeted_date),",
+				"     pivotBy(indicator, ['confirmed cases', 'deaths']),",
+				"     count = sum(daily_count),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> PivotCounts"
 			]
 		}
 	}
