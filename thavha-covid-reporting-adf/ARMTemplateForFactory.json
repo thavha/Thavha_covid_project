@@ -392,12 +392,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_raw_cases_deaths')]",
+			"name": "[concat(parameters('factoryName'), '/ds_country_lookup')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ls_adls_covidanalysislake",
+					"referenceName": "ls_ablob_coovidanalysissa",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
@@ -407,10 +407,9 @@
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "cases_deaths.csv",
-						"folderPath": "ecdc",
-						"fileSystem": "raw"
+						"type": "AzureBlobStorageLocation",
+						"fileName": "country_lookup.csv",
+						"container": "lookup"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -419,13 +418,29 @@
 				},
 				"schema": [
 					{
-						"name": "<!DOCTYPE html>",
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code_2_digit",
+						"type": "String"
+					},
+					{
+						"name": "country_code_3_digit",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
 						"type": "String"
 					}
 				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidanalysislake')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_ablob_coovidanalysissa')]"
 			]
 		},
 		{
@@ -604,6 +619,74 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidanalysislake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_processed_cases_and_deaths')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_covidanalysislake",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "transformations"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "ecdc/cases_deaths",
+						"fileSystem": "processed"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidanalysislake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_raw_cases_deaths')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_covidanalysislake",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "transformations"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "cases_deaths.csv",
+						"folderPath": "ecdc",
+						"fileSystem": "raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "<!DOCTYPE html>",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidanalysislake')]"
@@ -801,8 +884,8 @@
 						"          indicator,",
 						"          daily_count,",
 						"          source,",
-						"          each(match(name == 'date'),",
-						"               'repoeted' + '_date' = $$)",
+						"          each(match(name=='date'),",
+						"               'repoeted'+'_date' = $$)",
 						"     ),",
 						"     skipDuplicateMapInputs: false,",
 						"     skipDuplicateMapOutputs: false) ~> SelectOnlyReleventFields",
@@ -849,86 +932,53 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_country_lookup')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/pl_transorm_cases_and_death_df')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_ablob_coovidanalysissa",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "transformations"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "country_lookup.csv",
-						"container": "lookup"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
+				"activities": [
 					{
-						"name": "country",
-						"type": "String"
-					},
-					{
-						"name": "country_code_2_digit",
-						"type": "String"
-					},
-					{
-						"name": "country_code_3_digit",
-						"type": "String"
-					},
-					{
-						"name": "continent",
-						"type": "String"
-					},
-					{
-						"name": "population",
-						"type": "String"
+						"name": "df_tranform_cases_and_deaths",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_tranform_cases_deaths",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"CasesDeathSource": {},
+									"Countrylookup": {},
+									"CasesAndDeathSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
 					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_ablob_coovidanalysissa')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_processed_cases_and_deaths')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_adls_covidanalysislake",
-					"type": "LinkedServiceReference"
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
 				},
 				"folder": {
-					"name": "transformations"
+					"name": "transform"
 				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "ecdc/cases_deaths",
-						"fileSystem": "processed"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
+				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidanalysislake')]"
+				"[concat(variables('factoryId'), '/dataflows/df_tranform_cases_deaths')]"
 			]
 		}
 	]
