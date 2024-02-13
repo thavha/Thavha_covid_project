@@ -1,0 +1,23 @@
+{
+	"name": "ds_processed_hospital_admission_weekly",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_covidanalysislake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "ecdc/hopital_admission_weekly",
+				"fileSystem": "processed"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
