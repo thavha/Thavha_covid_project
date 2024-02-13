@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "ds_ecdc_raw_csv_http",
+						"referenceName": "ds_hospital_admission",
 						"type": "DatasetReference"
 					},
 					"name": "HospitaAdmissionsSource",
@@ -16,9 +16,19 @@
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          country as string,",
+				"          indicator as string,",
+				"          date as string,",
+				"          year_week as string,",
+				"          value as string,",
+				"          source as string,",
+				"          url as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> HospitaAdmissionsSource"
+				"     ignoreNoFilesFound: false,",
+				"     moveFiles: ['/ecdc','archive']) ~> HospitaAdmissionsSource"
 			]
 		}
 	}
