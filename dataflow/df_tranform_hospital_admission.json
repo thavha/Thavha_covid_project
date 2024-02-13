@@ -33,6 +33,10 @@
 				{
 					"name": "removeunnecessarcolumns",
 					"description": "remove columns that we do not need"
+				},
+				{
+					"name": "SplitDailyFromWeekly",
+					"description": "split only daily based on indicator"
 				}
 			],
 			"scriptLines": [
@@ -85,7 +89,9 @@
 				"          population",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> removeunnecessarcolumns"
+				"     skipDuplicateMapOutputs: true) ~> removeunnecessarcolumns",
+				"removeunnecessarcolumns split(startsWith(indicator, 'Daily'),",
+				"     disjoint: false) ~> SplitDailyFromWeekly@(dailyAdmissions, weeklyAdmissions)"
 			]
 		}
 	}
