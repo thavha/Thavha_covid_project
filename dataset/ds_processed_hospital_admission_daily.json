@@ -5,6 +5,9 @@
 			"referenceName": "ls_adls_covidanalysislake",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "transformations"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
