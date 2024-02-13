@@ -19,7 +19,7 @@
 				"source(output(",
 				"          country as string,",
 				"          indicator as string,",
-				"          date as string,",
+				"          date as date,",
 				"          year_week as string,",
 				"          value as string,",
 				"          source as string,",
