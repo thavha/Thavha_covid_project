@@ -125,7 +125,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> removeunnecessarcolumns",
-				"removeunnecessarcolumns split(startsWith(indicator, \"Daily\"),",
+				"removeunnecessarcolumns split(indicator == 'Daily hospital occupancy' || indicator == 'Daily ICU occupancy',",
 				"     disjoint: true) ~> SplitDailyFromWeekly@(dailyAdmissions, weeklyAdmissions)",
 				"DimDateSource derive(ecdc_year_week = year + '-W' + lpad(week_of_year, 2, '0')) ~> DeriveECDCYearWeek",
 				"DeriveECDCYearWeek aggregate(groupBy(ecdc_year_week),",
