@@ -11,24 +11,81 @@
 					},
 					"name": "HospitaAdmissionsSource",
 					"description": "Transform Hospital admission with date and country lookup datasets"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_country_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "countrylookup"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "selectRequiredField",
+					"description": "Removing url, rename date to date reported, renaming year_week to reported_year-week"
+				},
+				{
+					"name": "LookupCountry",
+					"description": "Add country to our data"
+				},
+				{
+					"name": "removeunnecessarcolumns",
+					"description": "remove columns that we do not need"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          country as string,",
 				"          indicator as string,",
 				"          date as date,",
 				"          year_week as string,",
-				"          value as string,",
+				"          value as double,",
 				"          source as string,",
 				"          url as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     moveFiles: ['/ecdc','archive']) ~> HospitaAdmissionsSource"
+				"     moveFiles: ['/ecdc','archive']) ~> HospitaAdmissionsSource",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> countrylookup",
+				"HospitaAdmissionsSource select(mapColumn(",
+				"          country,",
+				"          indicator,",
+				"          reported_date = date,",
+				"          reported_year_week = year_week,",
+				"          value,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectRequiredField",
+				"selectRequiredField, countrylookup lookup(selectRequiredField@country == countrylookup@country,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> LookupCountry",
+				"LookupCountry select(mapColumn(",
+				"          country = selectRequiredField@country,",
+				"          indicator,",
+				"          reported_date,",
+				"          reported_year_week,",
+				"          value,",
+				"          source,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removeunnecessarcolumns"
 			]
 		}
 	}
