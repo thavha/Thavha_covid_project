@@ -5,6 +5,10 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "ds_ecdc_raw_csv_http",
+						"type": "DatasetReference"
+					},
 					"name": "HospitaAdmissionsSource",
 					"description": "Transform Hospital admission with date and country lookup datasets"
 				}
@@ -13,7 +17,8 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> HospitaAdmissionsSource"
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> HospitaAdmissionsSource"
 			]
 		}
 	}
