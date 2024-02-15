@@ -11,6 +11,9 @@
 		"ls_adls_covidanalysislake_accountKey": {
 			"value": ""
 		},
+		"ls_db_covid_accessToken": {
+			"value": ""
+		},
 		"ls_adls_covidanalysislake_properties_typeProperties_url": {
 			"value": "https://covidanalysislake.dfs.core.windows.net/"
 		},
