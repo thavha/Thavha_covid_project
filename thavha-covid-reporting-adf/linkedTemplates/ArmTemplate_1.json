@@ -1601,8 +1601,6 @@
 					{
 						"name": "df_transform_hospital_admissions",
 						"type": "ExecuteDataFlow",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
