@@ -17,6 +17,9 @@
 		"ls_adls_covidanalysislake_properties_typeProperties_url": {
 			"value": "https://covidanalysislake.dfs.core.windows.net/"
 		},
+		"ls_db_covid_properties_typeProperties_existingClusterId": {
+			"value": "0215-093650-1izyaq0p"
+		},
 		"ls_http_opendata_ecde_europa_eu_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
 		},
