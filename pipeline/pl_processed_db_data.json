@@ -1,9 +1,9 @@
 {
-	"name": "pl_processed_population_data",
+	"name": "pl_processed_db_data",
 	"properties": {
 		"activities": [
 			{
-				"name": "execute population tranformation",
+				"name": "execute population transformation",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -16,6 +16,33 @@
 				"userProperties": [],
 				"typeProperties": {
 					"notebookPath": "/covid/set-up/mount_storage"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_db_covid",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "execute population tranformation",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "execute population transformation",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/covid/set-up/testing_tranformations"
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_db_covid",
