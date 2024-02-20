@@ -25,6 +25,88 @@
 			{
 				"name": "execute population tranformation",
 				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/covid/set-up/testing_tranformations"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_db_covid",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Copy Testing",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "execute population tranformation",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE TABLE age_group_80_max",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_processed_testing_data",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_azure_testing_sql",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy population data",
+				"type": "Copy",
 				"dependsOn": [
 					{
 						"activity": "execute population transformation",
@@ -42,12 +124,47 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/covid/set-up/testing_tranformations"
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE TABLE  [covid_reporting].[testing]",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
-				"linkedServiceName": {
-					"referenceName": "ls_db_covid",
-					"type": "LinkedServiceReference"
-				}
+				"inputs": [
+					{
+						"referenceName": "ds_processed_population",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_azure_sql_population",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"folder": {

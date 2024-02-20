@@ -1,0 +1,64 @@
+{
+	"name": "ds_processed_population",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_covidanalysislake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "population",
+				"fileSystem": "processed"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "country_code_2_digit",
+				"type": "String"
+			},
+			{
+				"name": "country_code_3_digit",
+				"type": "String"
+			},
+			{
+				"name": "population",
+				"type": "String"
+			},
+			{
+				"name": "age_group_0_14",
+				"type": "String"
+			},
+			{
+				"name": "age_group_15_24",
+				"type": "String"
+			},
+			{
+				"name": "age_group_25_49",
+				"type": "String"
+			},
+			{
+				"name": "age_group_50_64",
+				"type": "String"
+			},
+			{
+				"name": "age_group_65_79",
+				"type": "String"
+			},
+			{
+				"name": "age_group_80_max",
+				"type": "String"
+			}
+		]
+	}
+}
