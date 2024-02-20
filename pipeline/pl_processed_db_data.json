@@ -76,7 +76,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "TRUNCATE TABLE age_group_80_max",
+						"preCopyScript": "TRUNCATE TABLE [covid_reporting].[testing]",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
