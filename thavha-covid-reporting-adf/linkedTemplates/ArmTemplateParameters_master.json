@@ -11,10 +11,10 @@
 		"ls_adls_covidanalysislake_accountKey": {
 			"value": ""
 		},
-		"ls_db_covid_accessToken": {
+		"ls_azure_sql_connectionString": {
 			"value": ""
 		},
-		"ls_azure_sql_connectionString": {
+		"ls_db_covid_accessToken": {
 			"value": ""
 		},
 		"ls_adls_covidanalysislake_properties_typeProperties_url": {
