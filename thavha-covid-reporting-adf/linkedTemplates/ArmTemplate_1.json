@@ -1718,8 +1718,8 @@
 										},
 										"sink": {
 											"name": "population",
-											"type": "Int64",
-											"physicalType": "bigint"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1880,8 +1880,8 @@
 										},
 										"sink": {
 											"name": "population",
-											"type": "Int64",
-											"physicalType": "bigint"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
