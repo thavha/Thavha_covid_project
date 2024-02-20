@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/covid/set-up/mount_storage"
+					"notebookPath": "/covid/set-up/population tranformation"
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_db_covid",
