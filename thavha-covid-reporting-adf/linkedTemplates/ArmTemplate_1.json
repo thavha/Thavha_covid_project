@@ -1730,8 +1730,8 @@
 										},
 										"sink": {
 											"name": "reported_date",
-											"type": "DateTime",
-											"physicalType": "date"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1742,8 +1742,8 @@
 										},
 										"sink": {
 											"name": "hospital_occupancy_count",
-											"type": "Int64",
-											"physicalType": "bigint"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1754,8 +1754,8 @@
 										},
 										"sink": {
 											"name": "icu_occupancy_count",
-											"type": "Int64",
-											"physicalType": "bigint"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1904,8 +1904,8 @@
 										},
 										"sink": {
 											"name": "reported_week_start_date",
-											"type": "DateTime",
-											"physicalType": "date"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1916,8 +1916,8 @@
 										},
 										"sink": {
 											"name": "reported_week_end_date",
-											"type": "DateTime",
-											"physicalType": "date"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1928,8 +1928,8 @@
 										},
 										"sink": {
 											"name": "new_hospitall_occupancy_count",
-											"type": "Int64",
-											"physicalType": "bigint"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
@@ -1940,8 +1940,8 @@
 										},
 										"sink": {
 											"name": "new_hospitall_ICU_count",
-											"type": "Int64",
-											"physicalType": "bigint"
+											"type": "String",
+											"physicalType": "varchar"
 										}
 									},
 									{
