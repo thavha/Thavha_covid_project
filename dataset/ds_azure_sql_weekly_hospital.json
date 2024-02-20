@@ -1,0 +1,60 @@
+{
+	"name": "ds_azure_sql_weekly_hospital",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_azure_sql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "country",
+				"type": "varchar"
+			},
+			{
+				"name": "country_code_2_digit",
+				"type": "varchar"
+			},
+			{
+				"name": "country_code_3_digit",
+				"type": "varchar"
+			},
+			{
+				"name": "population",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "reported_year_week",
+				"type": "varchar"
+			},
+			{
+				"name": "reported_week_start_date",
+				"type": "date"
+			},
+			{
+				"name": "reported_week_end_date",
+				"type": "date"
+			},
+			{
+				"name": "new_hospitall_occupancy_count",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "new_hospitall_ICU_count",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "source",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "covid_reporting",
+			"table": "hospital_admissions_weekly"
+		}
+	}
+}

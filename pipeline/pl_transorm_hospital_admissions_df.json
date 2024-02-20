@@ -27,7 +27,7 @@
 				}
 			},
 			{
-				"name": "Copy hospital admission",
+				"name": "Copy hospital admission daily",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -83,7 +83,69 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_azure_sql_db",
+						"referenceName": "ds_azure_hospital",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy hospital admission weekly",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "df_transform_hospital_admissions",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE TABLE covid_reporting.hospital_admissions_weekly",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_processed_hospital_admission_weekly",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_azure_sql_weekly_hospital",
 						"type": "DatasetReference"
 					}
 				]
