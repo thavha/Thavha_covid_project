@@ -6,12 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "pl_ingest_population_data",
-					"type": "PipelineReference"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "pl_excute_population_data",
 					"type": "PipelineReference"
 				}
